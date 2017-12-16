@@ -23,15 +23,7 @@ class _ContactsListPageState extends State<ContactsListPage> {
     var results = JSON.decode(response.body);
     if (results.length > 0) {
       for (var contact in results) {
-        contactsList.add(new Contact(
-          id: contact["id"],
-          avatar: contact["avatar"],
-          address: contact["address"],
-          description: contact["description"],
-          name: contact["name"],
-          phone: contact["phone"],
-          title: contact["title"]
-        ));
+        contactsList.add(new Contact.fromJSON(contact));
       }
 
       setState(() {
@@ -40,8 +32,13 @@ class _ContactsListPageState extends State<ContactsListPage> {
     }
   }
 
+  _handleItemPressed(Contact contact) {
+    Navigator.pushNamed(context, '/details');
+  }
+
   @override
   void initState() {
+    super.initState();
     _getContacts();
   }
 
@@ -54,7 +51,7 @@ class _ContactsListPageState extends State<ContactsListPage> {
       body: new Column(
         children: <Widget>[
           new NavBar("Contacts"),
-          new ContactsList(contactsList),
+          new ContactsList(contactsList, _handleItemPressed),
         ],
       ),
     );
