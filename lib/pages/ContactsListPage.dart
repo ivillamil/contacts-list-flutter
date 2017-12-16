@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:contacts_list/components/NavBar.dart';
 import 'package:contacts_list/components/ContactsList.dart';
 import 'package:contacts_list/models/Contact.dart';
+import 'package:contacts_list/pages/ContactDetailsPage.dart';
 import 'package:contacts_list/settings/AppColors.dart';
 
 class ContactsListPage extends StatefulWidget {
@@ -33,7 +34,9 @@ class _ContactsListPageState extends State<ContactsListPage> {
   }
 
   _handleItemPressed(Contact contact) {
-    Navigator.pushNamed(context, '/details');
+    Navigator.of(context).push(new MaterialPageRoute(
+      builder: (_) => new ContactDetailsPage(contact)
+    ));
   }
 
   @override

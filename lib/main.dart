@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:contacts_list/pages/ContactsListPage.dart';
+import 'package:contacts_list/pages/ContactDetailsPage.dart';
 
 void main() => runApp(new ContactsApp());
 

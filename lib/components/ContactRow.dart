@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:contacts_list/components/UserAvatarWidget.dart';
 import 'package:contacts_list/models/Contact.dart';
 import 'package:contacts_list/settings/AppColors.dart';
 
@@ -53,45 +54,15 @@ class ContactRow extends StatelessWidget {
         children: <Widget>[
           new Positioned(
             child: _getBody(contact.name, contact.title),
-            bottom: 10.0,
-            left: 50.0,
-            right: 20.0,
-            top: 10.0,
+            bottom: 10.0, left: 50.0, right: 20.0, top: 10.0,
           ),
           new Positioned(
             child: new UserAvatarWidget(contact.avatar),
-            left: 20.0,
-            top: 20.0,
+            left: 20.0, top: 20.0,
           ),
         ],
       ),
       height: rowHeight,
-    );
-  }
-}
-
-class UserAvatarWidget extends StatelessWidget {
-  final String imageUrl;
-
-  UserAvatarWidget(this.imageUrl);
-
-  @override
-  Widget build(BuildContext context) {
-    return new Container(
-      child: new CircleAvatar(
-        backgroundColor: AppColors.purpleDark,
-        backgroundImage: new NetworkImage(imageUrl),
-      ),
-      decoration: new BoxDecoration(
-          border: new Border.all(
-              color: AppColors.purpleLight,
-              width: 2.0
-          ),
-          color: AppColors.purpleDarker,
-          shape: BoxShape.circle
-      ),
-      height: 80.0,
-      width: 80.0,
     );
   }
 }
