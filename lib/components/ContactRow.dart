@@ -18,6 +18,8 @@ class ContactRow extends StatelessWidget {
                 color: AppColors.text,
                 fontSize: 20.0
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           new Container(
             decoration: new BoxDecoration(
@@ -40,7 +42,7 @@ class ContactRow extends StatelessWidget {
           color: AppColors.purple,
           borderRadius: const BorderRadius.all(const Radius.circular(20.0))
       ),
-      padding: const EdgeInsets.only(left: 70.0),
+      padding: const EdgeInsets.only(left: 70.0, right: 10.0),
     );
   }
 
@@ -50,14 +52,14 @@ class ContactRow extends StatelessWidget {
       child: new Stack(
         children: <Widget>[
           new Positioned(
-            child: _getBody(contact.name, contact.name),
+            child: _getBody(contact.name, contact.title),
             bottom: 10.0,
             left: 50.0,
             right: 20.0,
             top: 10.0,
           ),
           new Positioned(
-            child: new UserAvatarWidget(),
+            child: new UserAvatarWidget(contact.avatar),
             left: 20.0,
             top: 20.0,
           ),
@@ -69,10 +71,17 @@ class ContactRow extends StatelessWidget {
 }
 
 class UserAvatarWidget extends StatelessWidget {
+  final String imageUrl;
+
+  UserAvatarWidget(this.imageUrl);
+
   @override
   Widget build(BuildContext context) {
     return new Container(
-      child: null,
+      child: new CircleAvatar(
+        backgroundColor: AppColors.purpleDark,
+        backgroundImage: new NetworkImage(imageUrl),
+      ),
       decoration: new BoxDecoration(
           border: new Border.all(
               color: AppColors.purpleLight,
