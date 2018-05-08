@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:contacts_list/components/NavBar.dart';
 import 'package:contacts_list/components/ContactsList.dart';
 import 'package:contacts_list/models/Contact.dart';
@@ -11,20 +11,20 @@ class ContactsListPage extends StatefulWidget {
   ContactsListPage({Key key}) : super(key: key);
 
   @override
-  _ContactsListPageState createState() => new _ContactsListPageState();
+  _ContactsListPageState createState() => _ContactsListPageState();
 }
 
 class _ContactsListPageState extends State<ContactsListPage> {
-  List<Contact> contactsList = new List<Contact>();
+  List<Contact> contactsList = List<Contact>();
 
   _getContacts() async {
     String url = 'https://gist.githubusercontent.com/ivillamil/76c07f710e4151e75911a0aab72e1a38/raw/772085e70f361bdd28e2d70fabe2e7f4826e487d/users-db.json';
-    var httpClient = createHttpClient();
+    var httpClient = http.Client();
     var response = await httpClient.get(url);
     var results = JSON.decode(response.body);
     if (results.length > 0) {
       for (var contact in results) {
-        contactsList.add(new Contact.fromJSON(contact));
+        contactsList.add(Contact.fromJSON(contact));
       }
 
       setState(() {
@@ -34,7 +34,7 @@ class _ContactsListPageState extends State<ContactsListPage> {
   }
 
   _handleItemPressed(Contact contact) {
-    Navigator.of(context).push(new MaterialPageRoute(
+    Navigator.of(context).push(MaterialPageRoute(
       builder: (_) => new ContactDetailsPage(contact)
     ));
   }
@@ -49,14 +49,18 @@ class _ContactsListPageState extends State<ContactsListPage> {
   @override
   Widget build(BuildContext context) {
 
-    return new Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.purpleDark,
-      body: new Column(
+      body: Column(
         children: <Widget>[
-          new NavBar("Contacts"),
-          new ContactsList(contactsList, _handleItemPressed),
+          NavBar("Contacts"),
+          ContactsList(contactsList, _handleItemPressed),
         ],
       ),
     );
+  }
+
+  createHttpClient() {
+
   }
 }

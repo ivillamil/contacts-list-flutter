@@ -18,34 +18,37 @@ class ContactDetailsPage extends StatelessWidget {
 
     var space = (size) => new SizedBox(height: size);
     var contactDataRow = (String label, String value) => new Container(
-      child: new Column(
+      child: Column(
         children: <Widget>[
           new Text(label, style: AppFontStyles.label),
           new Text(value, style: AppFontStyles.subtitle),
         ],
         crossAxisAlignment: CrossAxisAlignment.start,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
     );
-    var centeredText = (String text, TextStyle style) => new Center(child: new Text(text, style: style));
-    var userImage = new Center(child: new UserAvatarWidget(contact.avatar, size: 120.0, borderWidth: 4.0));
-    var commentView = new Container(
-      child: new Text(contact.description, style: AppFontStyles.description),
+    var centeredText = (String text, TextStyle style) => Center(child: Text(text, style: style));
+    var userImage = new Center(child: UserAvatarWidget(contact.avatar, size: 120.0, borderWidth: 4.0));
+    var commentView = Container(
+      child: new Text(
+          contact.description,
+          style: AppFontStyles.description
+      ),
       decoration: const BoxDecoration(
         color: AppColors.purple,
-        borderRadius: const BorderRadius.all(const Radius.circular(20.0))
+        borderRadius: BorderRadius.all(Radius.circular(20.0))
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 20.0),
-      padding: const EdgeInsets.all(20.0),
+      margin: EdgeInsets.symmetric(horizontal: 20.0),
+      padding: EdgeInsets.all(20.0),
     );
 
-    return new Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.purpleDark,
-      body: new Column(
+      body: Column(
         children: <Widget>[
-          new NavBar("Details", onBack: _goBack),
-          new Expanded(
-            child: new ListView(
+          NavBar("Details", onBack: _goBack),
+          Expanded(
+            child: ListView(
               children: <Widget>[
                 userImage,
                 space(20.0),
